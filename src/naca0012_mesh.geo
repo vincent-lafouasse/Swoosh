@@ -1,4 +1,4 @@
-Include "naca0012.geo";
+Include "../aux/naca0012.geo";
 //+
 
 yMax = 4;
