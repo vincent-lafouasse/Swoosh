@@ -49,9 +49,16 @@ class Airfoil:
         self.upper = np.array(upper)
         self.lower = np.array(lower)
 
+    def plot(self):
+        upper_x = np.array([point[0] for point in self.upper])
+        upper_y = np.array([point[1] for point in self.upper])
+        lower_x = np.array([point[0] for point in self.lower])
+        lower_y = np.array([point[1] for point in self.lower])
+        plt.plot(upper_x, upper_y)
+        plt.plot(lower_x, lower_y)
+        plt.show()
+
 
 if __name__ == "__main__":
     airfoil = Airfoil("./aux/naca0012.txt")
-    print(airfoil.name)
-    print(airfoil.upper)
-    print(airfoil.lower)
+    airfoil.plot()
