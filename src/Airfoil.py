@@ -24,9 +24,27 @@ class Airfoil:
         while lines[i] == "":
             i += 1
 
-        print(i)
+        for _ in range(upperSize):
+            point = lines[i].split()
+            assert len(point) == 2
+            point = [float(s) for s in point]
+            self.upper.append(point)
+            i += 1
+
+        assert lines[i] == ""  # we should be done with the upper part
+        while lines[i] == "":
+            i += 1
+
+        for _ in range(lowerSize):
+            point = lines[i].split()
+            assert len(point) == 2
+            point = [float(s) for s in point]
+            self.lower.append(point)
+            i += 1
 
 
 if __name__ == "__main__":
     airfoil = Airfoil("./aux/naca0012.txt")
     print(airfoil.name)
+    print(airfoil.upper)
+    print(airfoil.lower)
