@@ -66,9 +66,10 @@ class Naca0012:
                 pointIndex += 1
 
             nPoints = pointIndex - 1
-            for i in range(1, nPoints):
-                outfile.write(f"Line({i}) = {{{i}, {i + 1}}};\n")
-            outfile.write(f"Line({nPoints}) = {{{1}, {nPoints}}};\n")
+            outfile.write(f"Line(1) = {{")
+            for i in range(1, nPoints + 1):
+                outfile.write(f"{i}, ")
+            outfile.write(f"1}};\n")
 
     def plot(self):
         upper_x = np.array([point[0] for point in self.upper])
@@ -117,9 +118,11 @@ class S9104:
                 x, y = self.points[i]
                 outfile.write(f"Point({i + 1}) = {{{x}, {y}, 0, 1.0}};\n")
 
-            for i in range(1, nPoints):
-                outfile.write(f"Line({i}) = {{{i}, {i + 1}}};\n")
-            outfile.write(f"Line({nPoints}) = {{{1}, {nPoints}}};\n")
+
+            outfile.write(f"Line(1) = {{")
+            for i in range(1, nPoints + 1):
+                outfile.write(f"{i}, ")
+            outfile.write(f"1}};\n")
 
     def plot(self):
         x = np.array([point[0] for point in self.points])
@@ -130,6 +133,6 @@ class S9104:
 
 
 if __name__ == "__main__":
-    airfoil = S9104()
+    airfoil = Naca0012()
     # airfoil.plot()
     airfoil.toGeo()
