@@ -65,11 +65,11 @@ class Naca0012:
                 outfile.write(f"Point({pointIndex}) = {{{x}, {y}, 0, 1.0}};\n")
                 pointIndex += 1
 
-            nPoints = pointIndex - 1
-            outfile.write(f"Line(1) = {{")
-            for i in range(1, nPoints + 1):
-                outfile.write(f"{i}, ")
-            outfile.write(f"1}};\n")
+            # nPoints = pointIndex - 1
+            # outfile.write(f"Line(1) = {{")
+            # for i in range(1, nPoints + 1):
+            #     outfile.write(f"{i}, ")
+            # outfile.write(f"1}};\n")
 
     def plot(self):
         upper_x = np.array([point[0] for point in self.upper])
@@ -119,10 +119,10 @@ class S9104:
                 outfile.write(f"Point({i + 1}) = {{{x}, {y}, 0, 1.0}};\n")
 
 
-            outfile.write(f"Line(1) = {{")
-            for i in range(1, nPoints + 1):
-                outfile.write(f"{i}, ")
-            outfile.write(f"1}};\n")
+            # outfile.write(f"Line(1) = {{")
+            # for i in range(1, nPoints + 1):
+            #     outfile.write(f"{i}, ")
+            # outfile.write(f"1}};\n")
 
     def plot(self):
         x = np.array([point[0] for point in self.points])
