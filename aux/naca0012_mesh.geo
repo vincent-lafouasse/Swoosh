@@ -1,9 +1,15 @@
 Include "naca0012.geo";
 //+
-Point(133) = {-0.5, 1, 0, 1.0};
+
+yMax = 1;
+xMin = -0.5;
+xMax = 4;
+
 //+
-Point(134) = {-0.5, -1, 0, 1.0};
+Point(133) = {xMin, yMax, 0, 1.0};
 //+
-Point(135) = {4, 1, 0, 1.0};
+Point(134) = {xMin, -yMax, 0, 1.0};
 //+
-Point(136) = {4, -1, 0, 1.0};
+Point(135) = {xMax, yMax, 0, 1.0};
+//+
+Point(136) = {xMax, -yMax, 0, 1.0};
