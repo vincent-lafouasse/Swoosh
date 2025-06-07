@@ -108,6 +108,19 @@ class S9104:
 
         self.points = np.array(points)
 
+    def toGeo(self):
+        path = "./aux/s9104.geo"
+
+        with open(path, "w") as outfile:
+            nPoints = len(self.points)
+            for i in range(nPoints):
+                x, y = self.points[i]
+                outfile.write(f"Point({i + 1}) = {{{x}, {y}, 0, 1.0}};\n")
+
+            for i in range(1, nPoints):
+                outfile.write(f"Line({i}) = {{{i}, {i + 1}}};\n")
+            outfile.write(f"Line({nPoints}) = {{{1}, {nPoints}}};\n")
+
     def plot(self):
         x = np.array([point[0] for point in self.points])
         y = np.array([point[1] for point in self.points])
@@ -117,6 +130,6 @@ class S9104:
 
 
 if __name__ == "__main__":
-    airfoil = Naca0012()
+    airfoil = S9104()
     # airfoil.plot()
     airfoil.toGeo()
