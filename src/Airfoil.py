@@ -50,6 +50,26 @@ class Naca0012:
         self.upper = np.array(upper)
         self.lower = np.array(lower)
 
+    def toGeo(self):
+        path = "./aux/naca0012.geo"
+
+        pointIndex = 1
+        with open(path, "w") as outfile:
+            for i in range(len(self.upper)):
+                x, y = self.upper[i]
+                outfile.write(f"Point({pointIndex}) = {{{x}, {y}, 0, 1.0}}\n")
+                pointIndex += 1
+
+            for i in reversed(range(len(self.lower))):
+                x, y = self.lower[i]
+                outfile.write(f"Point({pointIndex}) = {{{x}, {y}, 0, 1.0}}\n")
+                pointIndex += 1
+
+            nPoints = pointIndex - 1
+            for i in range(1, nPoints):
+                outfile.write(f"Line({i}) = {{{i}, {i + 1}}}\n")
+            outfile.write(f"Line({nPoints}) = {{{1}, {nPoints}}}\n")
+
     def plot(self):
         upper_x = np.array([point[0] for point in self.upper])
         upper_y = np.array([point[1] for point in self.upper])
@@ -97,5 +117,6 @@ class S9104:
 
 
 if __name__ == "__main__":
-    airfoil = S9104()
-    airfoil.plot()
+    airfoil = Naca0012()
+    # airfoil.plot()
+    airfoil.toGeo()
