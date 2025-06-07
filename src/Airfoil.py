@@ -2,8 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-class Airfoil:
-    def __init__(self, path):
+class Naca0012:
+    def __init__(self):
+        path = "./aux/naca0012.txt"
         self.load(path)
 
     def load(self, path):
@@ -56,9 +57,45 @@ class Airfoil:
         lower_y = np.array([point[1] for point in self.lower])
         plt.plot(upper_x, upper_y)
         plt.plot(lower_x, lower_y)
+        plt.axis("equal")
+        plt.show()
+
+
+class S9104:
+    def __init__(self):
+        path = "./aux/s9104.txt"
+        self.load(path)
+
+    def load(self, path):
+        points = []
+
+        lines = []
+        with open(path, "r") as file:
+            for line in file:
+                lines += [line.strip()]
+
+        assert lines[0][0:5] == "S9104"
+        self.name = lines[0]
+
+        for line in lines[1:]:
+            if line == "":
+                break
+
+            point = line.split()
+            point = [float(s) for s in point]
+            assert len(point) == 2
+            points.append(point)
+
+        self.points = np.array(points)
+
+    def plot(self):
+        x = np.array([point[0] for point in self.points])
+        y = np.array([point[1] for point in self.points])
+        plt.plot(x, y)
+        plt.axis("equal")
         plt.show()
 
 
 if __name__ == "__main__":
-    airfoil = Airfoil("./aux/naca0012.txt")
+    airfoil = S9104()
     airfoil.plot()
