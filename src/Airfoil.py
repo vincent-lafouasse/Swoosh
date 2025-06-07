@@ -1,10 +1,14 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+
 class Airfoil:
     def __init__(self, path):
         self.load(path)
 
     def load(self, path):
-        self.upper = []
-        self.lower = []
+        upper = []
+        lower = []
 
         lines = []
 
@@ -28,7 +32,7 @@ class Airfoil:
             point = lines[i].split()
             assert len(point) == 2
             point = [float(s) for s in point]
-            self.upper.append(point)
+            upper.append(point)
             i += 1
 
         assert lines[i] == ""  # we should be done with the upper part
@@ -39,8 +43,11 @@ class Airfoil:
             point = lines[i].split()
             assert len(point) == 2
             point = [float(s) for s in point]
-            self.lower.append(point)
+            lower.append(point)
             i += 1
+
+        self.upper = np.array(upper)
+        self.lower = np.array(lower)
 
 
 if __name__ == "__main__":
