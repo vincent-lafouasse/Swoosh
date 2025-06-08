@@ -8,10 +8,10 @@ xMax = 10;
 frontLobeResolution = 50;
 frontLobeProgression = 1;
 verticalResolution = 50;
-verticalProgression = 1.05;
+verticalProgression = 1.1;
 wingFlankResolution = 50;
 wingFlankProgression = 1;
-trailResolution = 100;
+trailResolution = 75;
 trailProgression = 1.015;
 
 n1 = frontLobeResolution;
@@ -106,10 +106,10 @@ Recombine Surface {5, 1, 2, 3, 4};
 //+
 Transfinite Curve {211, 221} = n1 Using Progression p1;
 //+
-Transfinite Curve {209, 219, 214} = n2 Using Progression 1.05;
+Transfinite Curve {209, 219, -214} = n2 Using Progression  p2;
 //+
-Transfinite Curve {210, 218, 215} = n2 Using Progression 1;
+Transfinite Curve {210, -218, 215} = n2 Using Progression p2;
 //+
-Transfinite Curve {212, 222, 223, 217} = 10 Using Progression 1;
+Transfinite Curve {212, 222, 223, 217} = n3 Using Progression p3;
 //+
-Transfinite Curve {213, 220, 216} = 10 Using Progression 1;
+Transfinite Curve {213, 220, 216} = n4 Using Progression p4;
