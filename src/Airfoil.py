@@ -3,67 +3,36 @@ import matplotlib.pyplot as plt
 
 
 class Naca0012:
+    DAT_PATH = "./aux/naca0012.dat"
+    GEO_PATH = "./aux/naca0012.geo"
+
     def __init__(self):
-        path = "./aux/naca0012.txt"
-        self.load(path)
+        self.load(self.DAT_PATH)
 
     def load(self, path):
-        upper = []
-        lower = []
-
         lines = []
-
         with open(path, "r") as file:
             for line in file:
                 lines += [line.strip()]
 
-        assert lines[0][0:4] == "NACA"
+        id = "NACA 0012"
+        assert lines[0][0:len(id)] == id
         self.name = lines[0]
 
-        dimension = lines[1].split()
-        dimension = [s.rstrip(".") for s in dimension]
-        upperSize, lowerSize = [int(s) for s in dimension]
-
-        # skip header and blank lins
-        i = 2
-        while lines[i] == "":
-            i += 1
-
-        for _ in range(upperSize):
-            point = lines[i].split()
+        points = []
+        for line in lines[1:]:
+            point = line.split()
             assert len(point) == 2
             point = [float(s) for s in point]
-            upper.append(point)
-            i += 1
+            points.append(point)
 
-        assert lines[i] == ""  # we should be done with the upper part
-        while lines[i] == "":
-            i += 1
-
-        for _ in range(lowerSize):
-            point = lines[i].split()
-            assert len(point) == 2
-            point = [float(s) for s in point]
-            lower.append(point)
-            i += 1
-
-        self.upper = np.array(upper)
-        self.lower = np.array(lower)
+        self.points = np.array(points)
 
     def toGeo(self):
-        path = "./aux/naca0012.geo"
-
-        pointIndex = 1
-        with open(path, "w") as outfile:
-            for i in range(len(self.upper)):
-                x, y = self.upper[i]
-                outfile.write(f"Point({pointIndex}) = {{{x}, {y}, 0, 1.0}};\n")
-                pointIndex += 1
-
-            for i in reversed(range(len(self.lower))):
-                x, y = self.lower[i]
-                outfile.write(f"Point({pointIndex}) = {{{x}, {y}, 0, 1.0}};\n")
-                pointIndex += 1
+        with open(self.GEO_PATH, "w") as outfile:
+            for i in range(len(self.points)):
+                x, y = self.points[i]
+                outfile.write(f"Point({i + 1}) = {{{x}, {y}, 0, 1.0}};\n")
 
             # nPoints = pointIndex - 1
             # outfile.write(f"Line(1) = {{")
@@ -72,12 +41,10 @@ class Naca0012:
             # outfile.write(f"1}};\n")
 
     def plot(self):
-        upper_x = np.array([point[0] for point in self.upper])
-        upper_y = np.array([point[1] for point in self.upper])
-        lower_x = np.array([point[0] for point in self.lower])
-        lower_y = np.array([point[1] for point in self.lower])
-        plt.plot(upper_x, upper_y)
-        plt.plot(lower_x, lower_y)
+        x = np.array([point[0] for point in self.points])
+        y = np.array([point[1] for point in self.points])
+
+        plt.plot(x, y)
         plt.axis("equal")
         plt.show()
 
@@ -134,5 +101,5 @@ class S9104:
 
 if __name__ == "__main__":
     airfoil = Naca0012()
-    # airfoil.plot()
+    airfoil.plot()
     airfoil.toGeo()
