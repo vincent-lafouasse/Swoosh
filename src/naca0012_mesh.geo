@@ -5,14 +5,23 @@ yMax = 4;
 xMin = -0.5;
 xMax = 10;
 
-frontLobeResolution = 150;
+frontLobeResolution = 50;
 frontLobeProgression = 1;
-verticalResolution = 125;
+verticalResolution = 50;
 verticalProgression = 1.05;
-wingFlankResolution = 200;
+wingFlankResolution = 50;
 wingFlankProgression = 1;
-trailResolution = 250;
+trailResolution = 100;
 trailProgression = 1.015;
+
+n1 = frontLobeResolution;
+p1 = frontLobeProgression;
+n2 = verticalResolution;
+p2 = verticalProgression;
+n3 = wingFlankResolution;
+p3 = wingFlankProgression;
+n4 = trailResolution;
+p4 = trailProgression;
 
 //+
 Point(200) = {xMin, yMax, 0, 1.0}; // corners
