@@ -8,11 +8,11 @@ xMax = 10;
 frontLobeResolution = 50;
 frontLobeProgression = 1;
 verticalResolution = 50;
-verticalProgression = 1.1;
+verticalProgression = 1.15;
 wingFlankResolution = 50;
 wingFlankProgression = 1;
 trailResolution = 75;
-trailProgression = 1.015;
+trailProgression = 1.05;
 
 n1 = frontLobeResolution;
 p1 = frontLobeProgression;
@@ -112,4 +112,4 @@ Transfinite Curve {210, -218, 215} = n2 Using Progression p2;
 //+
 Transfinite Curve {212, 222, 223, 217} = n3 Using Progression p3;
 //+
-Transfinite Curve {213, 220, 216} = n4 Using Progression p4;
+Transfinite Curve {213, 220, -216} = n4 Using Progression p4;
