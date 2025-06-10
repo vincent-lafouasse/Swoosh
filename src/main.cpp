@@ -27,6 +27,7 @@ int main() {
                               cmap.get(progression).opaque());
             }
         }
+        DrawFPS(0, 0);
         EndDrawing();
     }
 
