@@ -14,23 +14,18 @@ int main() {
                "Swoosh");
     SetTargetFPS(60);
 
-    const ColorMap cmap = ColorMap::Catpuccin();
-
-    static constexpr int nSteps = 100;
-    static constexpr float stepWidth =
-        static_cast<float>(Grid::width * Grid::tileSize) / nSteps;
+    const ColorMap cmap = ColorMap::Viridis();
 
     while (!WindowShouldClose()) {
         BeginDrawing();
-        for (int i = 0; i < nSteps; ++i) {
-            const float progression = static_cast<float>(i) / (nSteps - 1);
-            const Rectangle rect = {
-                .x = stepWidth * i,
-                .y = 0.0f,
-                .width = stepWidth,
-                .height = static_cast<float>(Grid::tileSize * Grid::height),
-            };
-            DrawRectangleRec(rect, cmap.get(progression).opaque());
+        for (i32 x = 0; x < Grid::width; ++x) {
+            for (i32 y = 0; y < Grid::height; ++y) {
+                const float progression = static_cast<float>(x + y) /
+                                          (Grid::height + Grid::width - 2);
+                DrawRectangle(x * Grid::tileSize, y * Grid::tileSize,
+                              Grid::tileSize, Grid::tileSize,
+                              cmap.get(progression).opaque());
+            }
         }
         EndDrawing();
     }
