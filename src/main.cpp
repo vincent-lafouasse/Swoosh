@@ -1,6 +1,6 @@
 #include <raylib.h>
 
-#include "colors/Rgb.hpp"
+#include "colors/ColorMap.hpp"
 #include "ints.hpp"
 
 struct Grid {
@@ -14,9 +14,24 @@ int main() {
                "Swoosh");
     SetTargetFPS(60);
 
+    const ColorMap cmap = ColorMap::Catpuccin();
+
+    static constexpr int nSteps = 100;
+    static constexpr float stepWidth =
+        static_cast<float>(Grid::width * Grid::tileSize) / nSteps;
+
     while (!WindowShouldClose()) {
         BeginDrawing();
-        ClearBackground(catpuccin::Lavender.opaque());
+        for (int i = 0; i < nSteps; ++i) {
+            const float progression = static_cast<float>(i) / (nSteps - 1);
+            const Rectangle rect = {
+                .x = stepWidth * i,
+                .y = 0.0f,
+                .width = stepWidth,
+                .height = static_cast<float>(Grid::tileSize * Grid::height),
+            };
+            DrawRectangleRec(rect, cmap.get(progression).opaque());
+        }
         EndDrawing();
     }
 
