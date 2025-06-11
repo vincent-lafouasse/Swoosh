@@ -1,3 +1,4 @@
+#include <optional>
 #include <raylib.h>
 
 #include "colors/ColorMap.hpp"
